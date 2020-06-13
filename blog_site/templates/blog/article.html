@@ -1,0 +1,23 @@
+{%extends 'base.html'%}
+
+
+{%block sidebar%}
+{%include 'blog/sidebar.html'%}
+{%endblock%}
+
+
+{%block content%}
+<div class="row">
+{%for item in news%}    
+        <div class="card mr-4 mt-5" style="width: 18rem;">
+            <img src="{{ item.image.url }}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{item.title}}</h5>
+                <a href="#" class="card-text">{{item.text|truncatewords:25}}</a>
+            </div>
+        </div>
+{%endfor%}
+</div>
+{%endblock%}
+
+

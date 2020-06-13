@@ -1,0 +1,25 @@
+.content_block{
+    background: #ffffdf;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    height: 100%;
+}
+.card{
+    display: inline-block;
+}
+a{
+    color: black;
+}
+.nav{
+    background: #edf4df;
+}
+#dropdownMenuButton{
+    background: #edf4df;
+    color: black;
+    border: 0;
+}
+.row{
+    width: 100%;
+    margin: 0;
+
+}

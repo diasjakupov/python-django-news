@@ -1,0 +1,14 @@
+
+
+
+{%if all_cat%}
+<div class="card mt-5" style="width: 18rem;">
+    <ul class="list-group list-group-flush">
+        {%for item in all_cat%}
+        {%if item.news_set.exists%}
+            <a class="list-group-item" href="{%url 'category' item.pk%}">{{item.title}}</a>
+        {%endif%}
+        {%endfor%}
+    </ul>
+</div>
+{%endif%}
