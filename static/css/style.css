@@ -11,7 +11,7 @@ a{
     color: grey;
 }
 .nav{
-    background: #edf4df;
+    background: biscuit;
 }
 #dropdownMenuButton{
     background: #edf4df;
@@ -20,6 +20,6 @@ a{
 }
 .row{
     width: 100%;
-    margin: 0;
+    margin: 1px;
 
 }
