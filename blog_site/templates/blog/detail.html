@@ -1,6 +1,9 @@
 {%extends 'base.html'%}
 
 {%block detail%}
+<div class="wrapper">
+<img src="{{ article.image.url }}" alt="" class="background">
+<div class="art">
 <h3>{{article.title}}</h3>
 <p class="date">{{article.pub_date}}</p>
 {% autoescape off %}
@@ -9,4 +12,6 @@
 <br>
 <img src="static/icon/views.png" alt="" width="20" height="20">
 {{article.views}}
+</div>
+</div>
 {%endblock%}
