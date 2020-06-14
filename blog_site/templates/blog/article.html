@@ -1,23 +1,26 @@
 {%extends 'base.html'%}
 
-
 {%block sidebar%}
 {%include 'blog/sidebar.html'%}
 {%endblock%}
 
 
 {%block content%}
+<div class="article">
 <div class="row">
-{%for item in news%}    
+{%for art in news%}    
         <div class="card mr-4 mt-5" style="width: 18rem;">
-            <img src="{{ item.image.url }}" class="card-img-top" alt="...">
+            <img src="{{ art.image.url }}" class="card-img-top" alt="...">
             <div class="card-body">
-                <h5 class="card-title">{{item.title}}</h5>
-                <a href="#" class="card-text">{{item.text|truncatewords:25}}</a>
+                <h5 class="card-title">{{art.title}}</h5>
+                <a href="{% url 'detail' art.title%}" class="card-text">{{art.text|truncatewords:25}}</a>
             </div>
         </div>
 {%endfor%}
 </div>
+</div>
 {%endblock%}
+
+
 
 

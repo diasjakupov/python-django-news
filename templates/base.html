@@ -9,15 +9,24 @@
 </head>
 <body>
     
-    {%block nav%}
-    {%include 'inc/_nav.html'%}
-    {%endblock%}
+    <nav class="nav">
+        <a class="nav-link active" href="{%url 'mainpage' %}">Home</a>
+        <a class="nav-link" href="#">Link</a>
+        <a class="nav-link" href="#">Link</a>
+    </nav>
 
 
     <main class="content_block">
-        <div class="sidebar">{%block sidebar%}SIDEBAR{%endblock%}</div>
-        <div class="article">{%block content%}CONTENT{%endblock%}</div>
+        {%block sidebar%}
+        {%endblock%}
+        
+        {%block content%}
+        {%endblock%}
+
     </main>
+
+        {%block detail%}
+        {%endblock%}
 
 
 <!-- CSS only -->

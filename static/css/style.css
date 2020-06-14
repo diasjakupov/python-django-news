@@ -7,9 +7,6 @@
 .card{
     display: inline-block;
 }
-a{
-    color: grey;
-}
 .nav{
     background: grey;
 }
@@ -21,5 +18,8 @@ a{
 .row{
     width: 100%;
     margin: 1px;
-
+}
+.date{
+    color: #ff8000;
+    font-size: 18px;
 }
