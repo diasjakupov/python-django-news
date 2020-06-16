@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Category(models.Model):
     title=models.CharField(max_length=100)
 
@@ -19,7 +20,7 @@ class News(models.Model):
     is_published=models.BooleanField(default=True)
     pub_date=models.DateTimeField(auto_now=True)
     views=models.IntegerField(default=0)
-    cat=models.ForeignKey(Category, on_delete=models.CASCADE)
+    cat=models.ManyToManyField(Category)
 
     def __str__(self):
         return self.title
@@ -27,5 +28,8 @@ class News(models.Model):
     class Meta:
         verbose_name='Новость'
         verbose_name_plural='Новости'
+
+
+
 
 

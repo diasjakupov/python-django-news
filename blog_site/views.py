@@ -15,13 +15,11 @@ def category(request, cat_t):
     selected_news=current_cat.news_set.all()
     return render(request, 'blog/article.html', {'news':selected_news, 'all_cat':all_cat})
 
-def detailPage(request, cat_t, news_pk):
+def detailPage(request,news_pk):
     current_art = News.objects.get(pk=news_pk)
     current_art.views = F('views') + 1
     current_art.save()
-    current_art.refresh_from_db ()
-
-    print(current_art.views)
+    current_art.refresh_from_db()
     return render(request, 'blog/detail.html', {'article': current_art})
     
 
