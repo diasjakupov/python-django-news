@@ -2,7 +2,6 @@
 {%load static%}
 {%block detail%}
 <div class="wrapper">
-<img src="{{ article.image.url }}" alt="" class="background">
 <div class="art">
 <h3>{{article.title}}</h3>
 <p class="date">{{article.pub_date}}</p>
@@ -13,5 +12,6 @@
 <img src="{% static 'icon/views.png' %}" alt="" class="icon">
 <span class="views">{{article.views}}</span>
 </div>
+<div class="clearfix"></div>
 </div>
 {%endblock%}

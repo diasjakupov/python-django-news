@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from .models import News, Category
 from django.shortcuts import get_object_or_404
 from django.db.models import F
@@ -27,6 +27,11 @@ def detailPage(request,news_pk):
 
 def createPost(request):
     form = NewsForm()
+    if request.method=='POST':
+        form = NewsForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
     return render(request, 'blog/createPost.html', {'form': form})
     
 

@@ -1,5 +1,31 @@
 {%extends 'base.html'%}
 
 {%block form%}
-{{form.as_p}}
+<form action="" method="POST">
+{%csrf_token%}
+<div class="formwrapper">
+<div class="form-group">
+<label for="{{form.title.id_for_label}}">Title:</label>
+{{form.title}}
+</div>
+<div class="form-group">
+<label for="{{form.Text.id_for_label}}">Text:</label>
+{{form.text}}
+</div>
+<div class="form-group">
+<label for="{{form.cat.id_for_label}}">Category(-ies):</label>
+{{form.cat}}
+</div>
+<div class="form-group">
+<label for="{{form.Image.id_for_label}}">Image:</label>
+{{form.image}}
+</div>
+<div class="form-group">
+<label for="{{form.is_published.id_for_label}}">Опубликовано?:</label>
+{{form.is_published}}
+</div>
+
+<button type="submit" class="btn-primary">Опубликовать</button>
+</div>
+</form>
 {%endblock%}
