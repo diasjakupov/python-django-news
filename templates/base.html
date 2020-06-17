@@ -11,7 +11,7 @@
     
     <nav class="nav">
         <a class="nav-link active" href="{%url 'mainpage' %}">Home</a>
-        <a class="nav-link" href="#">Create new article</a>
+        <a class="nav-link" href="{%url 'createPost' %}">Create new article</a>
         <a class="nav-link" href="#">Link</a>
     </nav>
 
@@ -23,10 +23,15 @@
         {%block content%}
         {%endblock%}
 
+
     </main>
 
         {%block detail%}
         {%endblock%}
+
+        {%block form%}
+        {%endblock%}
+
 
 
 <!-- CSS only -->

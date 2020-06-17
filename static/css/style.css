@@ -34,9 +34,19 @@
     justify-content: center;
 }
 .art{
+    padding: 20px;
     top: 140px;
     height: 100%;
     position: absolute;
     background: white;
     width: 80%;
+}
+.icon{
+    position: absolute;
+    width: 20px;
+    height: 20px;
+}
+.views{
+    position: absolute;
+    left: 40px;
 }

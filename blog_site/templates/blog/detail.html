@@ -1,5 +1,5 @@
 {%extends 'base.html'%}
-
+{%load static%}
 {%block detail%}
 <div class="wrapper">
 <img src="{{ article.image.url }}" alt="" class="background">
@@ -10,8 +10,8 @@
 {{article.text}}
 {% endautoescape %}
 <br>
-<img src="static/icon/views.png" alt="" width="20" height="20">
-{{article.views}}
+<img src="{% static 'icon/views.png' %}" alt="" class="icon">
+<span class="views">{{article.views}}</span>
 </div>
 </div>
 {%endblock%}
