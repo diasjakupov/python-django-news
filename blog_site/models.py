@@ -16,7 +16,7 @@ class Category(models.Model):
 class News(models.Model):
     title=models.CharField(max_length=100)
     text=models.TextField(blank=True)
-    image=models.ImageField(blank=True, upload_to='news', default='news/maxresdefault.jpg')
+    image=models.ImageField(upload_to='news', null=True, blank=True)
     is_published=models.BooleanField(default=True)
     pub_date=models.DateTimeField(auto_now_add=True)
     views=models.IntegerField(default=0)
