@@ -20,7 +20,6 @@
 }
 .row{
     width: 100%;
-    margin: 1px;
 }
 .date{
     color: #ff8000;
@@ -32,10 +31,10 @@
     position: relative; 
 }
 .wrapper{
+    min-height: 813.750px;
     background: black;
     min-width: 100%;
     background-size: 100%;
-    min-height: auto;
     display: flex;
     justify-content: center;
     position: relative;
@@ -67,4 +66,13 @@
     height: 50px;
     display: flex;
     align-items: center;
+}
+.item-count{
+    color: #A9CCE3;
+    position: absolute;
+    left: 250px;
+}
+.item-count:hover{
+    color: #2874A6;
+    text-decoration:underline;
 }

@@ -4,7 +4,11 @@
     <ul class="list-group list-group-flush">
         {%for item in all_cat%}
         {%if item.news_set.exists%}
-            <a class="list-group-item" href="{%url 'category' item.title%}">{{item.title}}</a>
+            <a class="list-group-item" href="{%url 'category' item.title%}">
+                {{item.title}}
+                <span class="item-count">{{item.news_set.count}}</span>
+            </a>
+            
         {%endif%}
         {%endfor%}
     </ul>
