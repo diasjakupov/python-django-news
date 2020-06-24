@@ -6,12 +6,13 @@
 <h3>{{article.title}}</h3>
 <p class="date">{{article.pub_date}}</p>
 {% autoescape off %}
-{{article.text}}
+{{article.text|linebreaks}}
 {% endautoescape %}
 <br>
 <img src="{% static 'icon/views.png' %}" alt="" class="icon">
 <span class="views">{{article.views}}</span>
 </div>
+<img src="{{ article.image.url }}" alt="" class="bg-photo">
 <div class="clearfix"></div>
 </div>
 {%endblock%}

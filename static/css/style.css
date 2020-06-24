@@ -1,6 +1,23 @@
+*{
+    box-sizing: border-box;
+}
+.sidebar{
+    width: 100%;
+}
 .clearfix{ 
     clear: both;
 } 
+.row{
+    margin: 0;
+}
+.article{
+    display: grid;
+    justify-content: center;
+}
+.pag{
+    display: flex;
+    justify-content: center;
+}
 .content_block{
     background: #ffffdf;
     display: grid;
@@ -32,7 +49,6 @@
 }
 .wrapper{
     min-height: 813.750px;
-    background: black;
     min-width: 100%;
     background-size: 100%;
     display: flex;
@@ -45,10 +61,12 @@
     display: block;
 }
 .art{
+
     padding: 20px;
     height: auto;
     background: white;
-    width: 80%;
+    width: 90%;
+    z-index: 2;
 }
 .icon{
     width: 20px;
@@ -75,4 +93,10 @@
 .item-count:hover{
     color: #2874A6;
     text-decoration:underline;
+}
+.bg-photo{
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    min-height: 100%;
 }
