@@ -1,9 +1,16 @@
 from django.shortcuts import render, HttpResponse, redirect
-from .models import News, Category
 from django.shortcuts import get_object_or_404
 from django.db.models import F
-from .forms import NewsForm
 from django.core.paginator import Paginator
+
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import logout, login
+from django.contrib.auth import authenticate
+
+from .models import News, Category, User
+from .forms import NewsForm, CreationUserForm
+
+
 
 
 def articles(request):
@@ -37,6 +44,34 @@ def detailPage(request,news_pk):
     current_art.save()
     current_art.refresh_from_db()
     return render(request, 'blog/detail.html', {'article': current_art})
+
+def registerPage(request):
+    form = CreationUserForm()
+    if request.method =='POST':
+        form = CreationUserForm(request.POST)
+        if form.is_valid():
+            user=form.save()
+            User.objects.create(
+                user=user, username=request.POST['username'], email=request.POST['email']
+            )
+            return redirect('login')
+    return render(request, 'blog/register.html', {'form':form})
+
+def logoutPage(request):
+    logout(request)
+    return redirect('mainpage')
+
+def loginPage(request):
+    username=request.POST.get('username')
+    password=request.POST.get('password')
+    user=authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+        return redirect('mainpage')
+        
+    return render(request, 'blog/login.html')
+
+
 
 def createPost(request):
     form = NewsForm()
