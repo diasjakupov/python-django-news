@@ -1,7 +1,8 @@
 {%extends 'base.html'%}
+{% load news_count%}
 
 {%block sidebar%}
-{%include 'blog/sidebar.html'%}
+{%get_news_count%}
 {%endblock%}
 
 

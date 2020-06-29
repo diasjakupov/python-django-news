@@ -1,6 +1,9 @@
 {%extends 'base.html'%}
 
 {%block register%}
+{%for i in messages%}
+{{i}}
+{%endfor%}
 <form action="" method="post">
     {%csrf_token%}
     {{form.as_p}}

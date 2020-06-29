@@ -135,4 +135,11 @@ INTERNAL_IPS = [
 
 ]
 
+EMAIL_HOST='smtp.mail.ru'
+EMAIL_PORT=465
+EMAIL_HOST_USER='dias.dzhakupov.68@mail.ru'
+EMAIL_HOST_PASSWORD='687245Mama'
+EMAIL_USE_TLS=False
+EMAIL_USE_SSL=True
+
 

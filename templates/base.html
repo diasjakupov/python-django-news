@@ -22,6 +22,11 @@
 
 
     <main class="content_block">
+
+        {%for i in messages%}
+            {{i}}
+        {%endfor%}
+
         {%block sidebar%}
         {%endblock%}
         
@@ -41,6 +46,9 @@
         {%endblock%}
 
         {%block login%}
+        {%endblock%}
+
+        {%block password%}
         {%endblock%}
 
 

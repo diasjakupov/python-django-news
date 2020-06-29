@@ -6,30 +6,40 @@ from django.core.paginator import Paginator
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import logout, login
 from django.contrib.auth import authenticate
+from django.contrib import messages
 
 from .models import News, Category, User
 from .forms import NewsForm, CreationUserForm
 
+from django.core.mail import send_mail
+from django.contrib.auth.models import User as request_user
+import random
 
+
+def mail(request):
+    global num
+    num=str(random.randint(0, 10000))
+    send_mail('Subject here', num, 'dias.dzhakupov.68@mail.ru',
+    [person.email], fail_silently=False)
 
 
 def articles(request):
     article=News.objects.filter(is_published=True)
+    
 
     paginator = Paginator(article, 9)
     page_number = request.GET.get('page', 1)
     page_obj = paginator.get_page(page_number)
 
-
-
-    all_cat=Category.objects.all()
     queryset=News.objects.select_related('Category')
-    return render(request, 'blog/article.html', {'news':article, 'all_cat':all_cat, 'page_obj': page_obj})
+
+
+    return render(request, 'blog/article.html', {'news':article, 'page_obj': page_obj})
 
 def category(request, cat_t):
     current_cat=get_object_or_404(Category, title=cat_t)
     all_cat=Category.objects.all()
-    selected_news=current_cat.news_set.all()
+    selected_news=current_cat.news_set.filter(is_published=True)
 
     paginator = Paginator(selected_news, 9)
     page_number = request.GET.get('page', 1)
@@ -54,6 +64,7 @@ def registerPage(request):
             User.objects.create(
                 user=user, username=request.POST['username'], email=request.POST['email']
             )
+            messages.success(request, 'Аккаунт создан')
             return redirect('login')
     return render(request, 'blog/register.html', {'form':form})
 
@@ -67,8 +78,7 @@ def loginPage(request):
     user=authenticate(request, username=username, password=password)
     if user is not None:
         login(request, user)
-        return redirect('mainpage')
-        
+        return redirect('mainpage')        
     return render(request, 'blog/login.html')
 
 
@@ -80,7 +90,29 @@ def createPost(request):
         if form.is_valid():
             form.save()
             return redirect('/')
+
     return render(request, 'blog/createPost.html', {'form': form})
+
+def forget_pass(request):
+    if request.method=='POST':
+        email=request.POST['email']
+        global person
+        person=request_user.objects.get(email=email)
+        mail(request)
+        return redirect('change')
+        
+    return render(request, 'blog/create_password1.html')
+
+def password_change(request):
+    if request.method=='POST':
+        if request.POST['number']==num:
+                person.set_password(request.POST['password'])            
+                person.save()
+                messages.success(request, 'Пароль успешно изменен')
+                return redirect('login')
+    return render(request, 'blog/create_password2.html')
+    
+
     
 
 
