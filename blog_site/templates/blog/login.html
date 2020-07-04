@@ -18,6 +18,9 @@
     </div>
 
     <!-- Login Form -->
+    {%for i in messages%}
+            {{i}}
+    {%endfor%}
     <form method="POST">
         {%csrf_token%}
       <input type="text" id="login" class="fadeIn second" name="username" placeholder="username">

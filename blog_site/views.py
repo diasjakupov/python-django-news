@@ -2,9 +2,12 @@ from django.shortcuts import render, HttpResponse, redirect
 from django.shortcuts import get_object_or_404
 from django.db.models import F
 from django.core.paginator import Paginator
+from django.urls import reverse
+from django.views.decorators.cache import cache_page
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import logout, login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate
 from django.contrib import messages
 
@@ -16,16 +19,18 @@ from django.contrib.auth.models import User as request_user
 import random
 
 
+    
+
+
 def mail(request):
     global num
     num=str(random.randint(0, 10000))
     send_mail('Subject here', num, 'dias.dzhakupov.68@mail.ru',
     [person.email], fail_silently=False)
 
-
+# @cache_page(60*2)
 def articles(request):
-    article=News.objects.filter(is_published=True)
-    
+    article=News.objects.filter(is_published=True)    
 
     paginator = Paginator(article, 9)
     page_number = request.GET.get('page', 1)
@@ -73,12 +78,15 @@ def logoutPage(request):
     return redirect('mainpage')
 
 def loginPage(request):
-    username=request.POST.get('username')
-    password=request.POST.get('password')
-    user=authenticate(request, username=username, password=password)
-    if user is not None:
-        login(request, user)
-        return redirect('mainpage')        
+    if request.method =='POST':
+        username=request.POST.get('username')
+        password=request.POST.get('password')
+        user=authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('mainpage') 
+        else:
+            messages.error(request, 'Ошибка входа')       
     return render(request, 'blog/login.html')
 
 
@@ -111,6 +119,34 @@ def password_change(request):
                 messages.success(request, 'Пароль успешно изменен')
                 return redirect('login')
     return render(request, 'blog/create_password2.html')
+
+
+@login_required(login_url='login')
+def like(request, article_pk):
+    art=News.objects.get(pk=article_pk)
+    list_user_id=[]
+    if art.like_set.all():
+        print('1')
+        for i in art.like_set.all():
+            list_user_id.append(i.like.id)
+        if request.user.user.id in list_user_id:
+            print(list_user_id)             
+            print('ok')
+            art.like_set.get(like=request.user.user.pk).delete()
+            print('delete')
+        else:
+            print(list_user_id)
+            print('create')
+            art.like_set.create(like=request.user.user, post=art)
+    else:
+        print('create')
+        art.like_set.create(like=request.user.user, post=art)
+            
+    return redirect(art)
+
+def profile(request):
+    return render(request, 'blog/profile.html')
+    
     
 
     

@@ -13,7 +13,7 @@
         <a class="nav-link active" href="{%url 'mainpage' %}">Home</a>
         <a class="nav-link" href="{%url 'createPost' %}">Create new article</a>
         {% if request.user.is_authenticated%}
-        <span>Hello, {{request.user.username}}</span>
+        <a href="{%url 'profile'%}"><span>Hello, {{request.user.username}}</span></a>
         <a class="nav-link" href="{%url 'logout'%}">LogOut</a>
         {%else%}
         <a class="nav-link" href="{%url 'register'%}">Register</a>
@@ -23,9 +23,6 @@
 
     <main class="content_block">
 
-        {%for i in messages%}
-            {{i}}
-        {%endfor%}
 
         {%block sidebar%}
         {%endblock%}

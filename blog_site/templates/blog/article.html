@@ -14,7 +14,7 @@
             <img src="{{ art.image.url }}" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title">{{art.title}}</h5>
-                <a href="{% url 'detail' art.pk%}" class="card-text">{{art.text|truncatewords:25}}</a>
+                <a href="{% url 'detail' art.pk%}" class="card-text">{{art.text|truncatewords:25|safe}}</a>
             </div>
         </div>
 {%endfor%}

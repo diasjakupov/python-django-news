@@ -11,8 +11,10 @@
 <br>
 <img src="{% static 'icon/views.png' %}" alt="" class="icon">
 <span class="views">{{article.views}}</span>
+<a href="{%url 'like' article.id%}">Полезна ли была статья?</a><span>{{article.like_set.count}}</span>
 </div>
 <img src="{{ article.image.url }}" alt="" class="bg-photo">
+
 <div class="clearfix"></div>
 </div>
 {%endblock%}

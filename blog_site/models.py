@@ -1,8 +1,9 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User as person
+from django.urls import reverse
 
 class User(models.Model):
-    user=models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+    user=models.OneToOneField(person, on_delete=models.CASCADE, null=True)
     username=models.CharField(max_length=50)
     email=models.EmailField()
 
@@ -12,6 +13,8 @@ class User(models.Model):
     class Meta:
         verbose_name='Пользователь'
         verbose_name_plural='Пользователи'
+
+    
 
 
 
@@ -43,6 +46,18 @@ class News(models.Model):
     class Meta:
         verbose_name='Новость'
         verbose_name_plural='Новости'
+
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'news_pk': self.pk})
+
+class Like(models.Model):
+    post=models.ForeignKey(News, null=True, on_delete=models.CASCADE)
+    like=models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.like.username
+
+
 
 
 
