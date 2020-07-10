@@ -12,6 +12,6 @@ urlpatterns = [
     path('forget_password', views.forget_pass, name='forget'),
     path('change_password', views.password_change, name='change'),
     path('like/<int:article_pk>', views.like, name='like'),
-    path('profile', views.profile, name='profile')
+    path('profile/<int:user_pk>', views.profile, name='profile')
 
 ]

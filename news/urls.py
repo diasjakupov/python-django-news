@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('', include('blog_site.urls')),
+    path('social-auth/', include('social_django.urls', namespace="social")),
 ]
 if settings.DEBUG:
     import debug_toolbar

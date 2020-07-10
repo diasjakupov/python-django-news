@@ -1,6 +1,9 @@
 {%extends 'base.html'%}
 {% load news_count%}
 
+{%block mainpage%}
+<main class="content_block">
+
 {%block sidebar%}
 {%get_news_count%}
 {%endblock%}
@@ -63,6 +66,9 @@
 
 
 
+{%endblock%}
+
+</main>
 {%endblock%}
 
 

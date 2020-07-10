@@ -40,8 +40,24 @@ INSTALLED_APPS = [
     'ckeditor',
     'blog_site',
     'debug_toolbar',
+    'social_django', 
 ]
 
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'mainpage'
+LOGOUT_URL = 'logout'
+LOGOUT_REDIRECT_URL = 'login'
+
+SOCIAL_AUTH_FACEBOOK_KEY = 2653410474924854       # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = '398e4c0cef98c59143381e5547f9f8ab'  # App Secret
+
+
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.linkedin.LinkedinOAuth2',
+    'social_core.backends.instagram.InstagramOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 
 
@@ -86,8 +102,13 @@ WSGI_APPLICATION = 'news.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        #'ENGINE': 'django.db.backends.sqlite3',
+        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'django_db',
+        'USER':'root',
+        'PASSWORD':'687245dias',
+        'HOST':'localhost'
     }
 }
 

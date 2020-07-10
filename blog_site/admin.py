@@ -14,9 +14,7 @@ class NewsAdmin(admin.ModelAdmin):
     list_display=('id','title','views', 'pub_date', 'is_published')
     list_display_links=('id','title',)
     list_editable=('is_published',)
-
-class userAdmin(admin.ModelAdmin):
-    list_display=('id', 'username', 'email')
+    readonly_fields=('views',)
 
 
 
@@ -24,6 +22,6 @@ class userAdmin(admin.ModelAdmin):
 
 admin.site.register(News, NewsAdmin)
 admin.site.register(Category)
-admin.site.register(User, userAdmin)
 admin.site.register(Like)
+admin.site.register(Profile)
 

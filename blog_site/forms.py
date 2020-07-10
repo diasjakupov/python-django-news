@@ -1,5 +1,4 @@
-from .models import News
-from .models import User as person
+from .models import News, Profile
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -24,3 +23,8 @@ class CreationUserForm(UserCreationForm):
             'password1': forms.PasswordInput(attrs={'class':'form-control'}),
             'password2': forms.PasswordInput(attrs={'class':'form-control'}),
         }
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['image', 'username']

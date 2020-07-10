@@ -1,1 +1,15 @@
 {%extends 'base.html'%}
+
+{%block user%}
+<div class="media">
+  <form action="" method="POST" enctype="multipart/form-data">
+    {%csrf_token%}
+    <img src="{{user.profile.image.url}}" class="mr-3" alt="..." width="200" height="200">
+    <div class="media-body">
+      {{form.as_p}}
+      <button>Изменить профиль</button>    
+    </div>
+  </form>
+  </div>
+
+{%endblock%}

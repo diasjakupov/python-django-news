@@ -11,11 +11,14 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate
 from django.contrib import messages
 
-from .models import News, Category, User
-from .forms import NewsForm, CreationUserForm
+from .models import News, Category, Profile
+from .forms import NewsForm, CreationUserForm, UserForm
+from .decorator import createPost
 
 from django.core.mail import send_mail
 from django.contrib.auth.models import User as request_user
+from django.contrib.auth.models import Group
+
 import random
 
 
@@ -38,6 +41,8 @@ def articles(request):
 
     queryset=News.objects.select_related('Category')
 
+    print(request.user.pk)
+
 
     return render(request, 'blog/article.html', {'news':article, 'page_obj': page_obj})
 
@@ -53,6 +58,7 @@ def category(request, cat_t):
     queryset=News.objects.select_related('Category')
     return render(request, 'blog/article.html', {'news':selected_news, 'all_cat':all_cat, 'page_obj': page_obj})
 
+
 def detailPage(request,news_pk):
     current_art = get_object_or_404(News, pk=news_pk)
     current_art.views = F('views') + 1
@@ -66,9 +72,8 @@ def registerPage(request):
         form = CreationUserForm(request.POST)
         if form.is_valid():
             user=form.save()
-            User.objects.create(
-                user=user, username=request.POST['username'], email=request.POST['email']
-            )
+            group=Group.objects.get(name='user')
+            user.groups.add(group)
             messages.success(request, 'Аккаунт создан')
             return redirect('login')
     return render(request, 'blog/register.html', {'form':form})
@@ -90,7 +95,7 @@ def loginPage(request):
     return render(request, 'blog/login.html')
 
 
-
+@createPost(allow=['admin'])
 def createPost(request):
     form = NewsForm()
     if request.method=='POST':
@@ -129,23 +134,33 @@ def like(request, article_pk):
         print('1')
         for i in art.like_set.all():
             list_user_id.append(i.like.id)
-        if request.user.user.id in list_user_id:
+        if request.user.id in list_user_id:
             print(list_user_id)             
             print('ok')
-            art.like_set.get(like=request.user.user.pk).delete()
+            art.like_set.get(like=request.user.pk).delete()
             print('delete')
         else:
             print(list_user_id)
             print('create')
-            art.like_set.create(like=request.user.user, post=art)
+            art.like_set.create(like=request.user , post=art)
     else:
         print('create')
-        art.like_set.create(like=request.user.user, post=art)
+        art.like_set.create(like=request.user , post=art)
             
     return redirect(art)
 
-def profile(request):
-    return render(request, 'blog/profile.html')
+def profile(request, user_pk):
+    form = UserForm(instance=request.user.profile)
+    current_user=request_user.objects.get(pk=user_pk)
+    if request.method=='POST':
+        form = UserForm(request.POST, request.FILES, instance=request.user.profile)
+        if form.is_valid():
+            form.save() 
+            request.user.username=request.user.profile.username
+            request.user.save()
+            return redirect('profile', request.user.pk)
+    print(current_user.profile.image.url)
+    return render(request, 'blog/profile.html', {'user':current_user, 'form':form})
     
     
 
